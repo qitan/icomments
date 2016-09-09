@@ -1,6 +1,8 @@
 # icomments
 Django嵌套评论-icomments
 
+嵌套评论基于https://github.com/evilbinary/myblog.git  
+
 ###安装
 
 Step1:
