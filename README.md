@@ -61,3 +61,5 @@ Step5:
     <div class="latest_comment">  
     {% show_latest_comment %}  
     </div>
+
+My Email: qqing_lai@hotmail.com
