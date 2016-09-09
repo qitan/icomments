@@ -1,0 +1,57 @@
+{% load comment_level %}
+<div class="comments">
+    {% if comments %}
+    <h3>文章评论</h3>
+    {% for comment in comments %}
+    <div class="media media-comments" style="margin-left:{{ comment.level|show_level }}px">
+        {% if comment.author_url %}
+        <a class="pull-left" href="{{ comment.author_url }}" target="_blank">
+            {% else %}
+            <a class="pull-left">
+                {% endif %}
+                <img src="/static/img/comment.png" alt="">
+            </a>
+            <div class="media-body">
+                <h5 class="media-heading">{{ comment.author }} <span><a class="scrollTo" href="#respond" name="{{ comment.id }}" title="{{ comment.author }}" id="{{ comment.level }}">回复</a></span></h5>
+                <p class="date">{{ comment.date }}</p>
+                <p>{% if comment.approved == 3 %}评论内容已被隐藏！{% else %}{{ comment.content }}{% endif %}</p>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <span class="divider"></span>
+        <a class="target-fix" id="respond" name="test"></a>
+        <h3 id="reply-title">发表评论</h3>
+        <div class="comment-form">
+            <form action="{% url 'comment_submit' %}" method="post" id="commentform" class="comment-form">
+                {%csrf_token%}
+                {% for f in comform %}
+                <div class="form-group has-feedback left">
+                    {{ f }}
+                </div>
+                {% endfor %}
+                <input class="btn btn-primary btn-lg pull-right" name="submit" type="submit" value="发表回复">
+                <input type="hidden" name="comment_post_id" value="{{ comment_post_id  }}" id="comment_post_id">
+                <input type="hidden" name="comment_parent" id="comment_parent" value="0">
+                <input type="hidden" name="comment_level" id="comment_level" value="0">
+            </form>
+        </div>
+    </div>
+
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+                $('.scrollTo').click(function(){
+                    var reply_who = $(this).attr("title");
+                    var reply_id = $(this).attr("name");
+                    var reply_level = $(this).attr("id");
+                    $("#reply-title").text("回复 "+reply_who);
+                    $("#comment_parent").val(reply_id);
+                    $("#comment_level").val(reply_level);
+                    $('html,body').animate({
+scrollTop:$($(this).attr("href")).offset().top
+},500);
+                    return false;
+                    })
+                })
+    </script>
