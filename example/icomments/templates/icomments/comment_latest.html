@@ -1,0 +1,13 @@
+{% load comment_post %}
+{% if comments %}
+{% for comment in comments %}
+<div class="media">
+    <a class="pull-left" href="#"><img class="media-object" src="http://imaojia.com/static/img/comment.png"></a>
+    <div class="media-body post-latest">
+        <a style="display:inline" href="{{ comment.author_url }}" target="_blank">{{ comment.author }}</a>&nbsp;<small>{{ comment.date|date:"m月d日" }}</small><br />
+        <small>在</small>&nbsp;<a style="display:inline" href="{% url 'post_detail' pk=comment.post_id %}">《{{ comment.post_id|post_id }}》</a>&nbsp;<small>中的评论</small>
+        <p>{{ comment.content }}</p>
+    </div>
+</div>
+{% endfor %}
+{% endif %}

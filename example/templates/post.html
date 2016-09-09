@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+{% load comment %}
+{% block title %}
+<title>{{ post.title }}</title>
+{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h2>
+        {{ post.title }}
+    </h2>
+</div>
+<p>Author: {{ post.author }} {{ post.published_date }}</p>
+<p>
+{{ post.content|safe }}
+</p>
+<div class="comment" style="margin-top:60px;">
+    {% show_comment post.id %}
+</div>
+{%endblock %}

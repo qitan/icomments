@@ -1,0 +1,100 @@
+{% load comment %}
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% block title %}
+        <title>首页</title>
+        {% endblock %}
+
+        <!-- Bootstrap -->
+        <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <style>
+            input{
+                margin:10px 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-md-12 column">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li class="active">
+                                <a href="/">Home</a>
+                                </li>
+                                <li>
+                                <a href="http://imaojia.com" target="_blank">IMAOJIA</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <ul>
+                    </ul>
+
+                    <div class="row clearfix">
+                        <div class="col-md-8 column">
+                            <div class="row clearfix">
+                                <div class="col-md-12 column">
+                                    {% block content %}
+                                    {% for post in posts %}
+                                    <div class="page-header">
+                                        <h2>
+                                            <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a>
+                                        </h2>
+                                    </div>
+                                    <p>Author: {{ post.author }} {{ post.published_date }}</p>
+                                    <p>
+                                    {{ post.content|safe }}
+                                    </p>
+                                    <p>
+                                    <a class="btn" href="{% url 'post_detail' pk=post.pk %}">View details »</a>
+                                    </p>
+                                    {% endfor %}
+                                    {% endblock %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 column">
+                            <div class="row clearfix">
+                                <div class="col-md-12 column">
+                                    <div class="page-header"><h3>最新评论</h3></div>
+                                    <div class="latest">
+                                        {% show_latest_comment %}
+                                    </div>
+                                </div>
+                                <div class="col-md-12 column">
+                                    <div class="page-header"><h3>评论管理</h3></div>
+                                    <ul>
+                                        <li><a href="{% url 'comment_manage' type='list' %}">评论列表</a></li>
+                                        <li><a href="{% url 'comment_manage' type='trash' %}">垃圾评论</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 column" style="margin:30px 0;">
+                <p class="text-center lead">
+                <em>IComments</em> 嵌套评论
+                </p>
+            </div>
+        </div>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </body>
+</html>
