@@ -11,12 +11,6 @@ Step1:
 
 Step2:
 
-编辑 icomments/models.py  
-找到 from blog.models import Post  
-更改为项目文章模型
-
-Step3:
-
 添加 icomments 到项目  
 编辑 settings.py，添加
 
@@ -24,13 +18,13 @@ Step3:
     
 到INSTALLED_APPS
 
-Step4:
+Step3:
 
 编辑 urls.py, 添加路由
 
     url(r'', include('icomments.urls')),
 
-Step5:
+Step4:
 
 同步数据库
 
