@@ -5,8 +5,6 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
 
-from blog.models import Post
-
 # Create your models here.
 APPROVED_TYPE=(
     (0,u'通过'),
@@ -16,7 +14,7 @@ APPROVED_TYPE=(
 )
 
 class Comments(models.Model):
-    post=models.ForeignKey(Post,verbose_name=u'文章')
+    post_id = models.BigIntegerField(default=0,verbose_name=u'文章ID')
     author = models.CharField(max_length=100,verbose_name=u'昵称')
     author_email = models.EmailField(verbose_name=u'邮箱')
     author_url = models.CharField(max_length=200,blank=True,verbose_name=u'网址')
